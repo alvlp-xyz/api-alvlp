@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form id="login-form">
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+    <p>Don't have an account? <a href="/register">Register</a></p>
+
+    <script type="module">
+        import { getAuth, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js';
+        import { auth } from '../firebaseConfig.js';
+
+        const form = document.getElementById('login-form');
+        // Inside the script tag of login.html
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    try {
+        await signInWithEmailAndPassword(auth, email, password);
+        alert('Login successful');
+        window.location.href = '/profile';
+    } catch (error) {
+        console.error("Login Error:", error);
+        alert(`Error: ${error.message}`);
+    }
+});
+
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+
+</body>
+</html>
