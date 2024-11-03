@@ -1,4 +1,71 @@
 import otakudesu from '../src/otakudesu.js';
+import resolveUrl from '../src/lib/resolveUrl.js';
+
+const getUrl = async (req, res) => {
+    const { url } = req.query;
+
+    if (!url) {
+        return res.status(400).json({
+            status: 'Error',
+            message: 'Missing required "url" parameter. Please include the PixelDrain URL you want to process.'
+        });
+    }
+
+    try {
+
+        const resultUrl = await resolveUrl(url);
+
+        return res.status(200).json({
+            status: 'Ok',
+            data: resultUrl
+        });
+    } catch (error) {
+        console.error('Error resolving PixelDrain URL:', error);
+        return res.status(500).json({
+            status: 'Error',
+            message: error.message
+        });
+    }
+};
+
+const getPdrain = async (req, res) => {
+    const { url } = req.query;
+
+    if (!url) {
+        return res.status(400).json({
+            status: 'Error',
+            message: 'Missing required "url" parameter. Please include the PixelDrain URL you want to process.'
+        });
+    }
+
+    try {
+        const resolvedUrl = await resolveUrl(url); // Call resolveUrl as a library function
+
+        // Extract the ID from the resolved URL
+        const idMatch = resolvedUrl.match(/https:\/\/pixeldrain\.com\/u\/([a-zA-Z0-9]+)/);
+        if (!idMatch) {
+            return res.status(400).json({
+                status: 'Error',
+                message: 'Invalid PixelDrain URL format. Please provide a valid PixelDrain user URL.'
+            });
+        }
+
+        const fileId = idMatch[1];
+        const apiUrl = `https://pixeldrain.com/api/file/${fileId}`;
+
+        return res.status(200).json({
+            status: 'Ok',
+            data: apiUrl
+        });
+    } catch (error) {
+        console.error('Error resolving PixelDrain URL:', error);
+        return res.status(500).json({
+            status: 'Error',
+            message: error.message
+        });
+    }
+};
+
 const searchAnimeHandler = async (req, res) => {
     const { keyword } = req.params;
     let data;
@@ -181,6 +248,7 @@ const animeByGenreHandler = async (req, res) => {
     return res.status(200).json({ status: 'Ok', data });
 };
 export default {
+    resolveUrl,
     searchAnimeHandler,
     homeHandler,
     singleAnimeHandler,
@@ -192,5 +260,7 @@ export default {
     batchByBatchSlugHandler,
     batchHandler,
     genreListsHandler,
-    animeByGenreHandler
+    animeByGenreHandler,
+    getPdrain,
+    getUrl
 };

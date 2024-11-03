@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+</head>
+<body>
+    <div id="message"></div>
+
+    <script>
+        // Get the token from the URL
+        const params = new URLSearchParams(window.location.search);
+        const token = params.get('token');
+
+        if (token) {
+// Assuming `token` is obtained from the URL or a stored variable
+fetch(`/auth/verify/${token}`)
+    .then(response => response.json())
+    .then(data => {
+        if (data && data.accessToken) {
+            // Store user profile data in localStorage
+            const userProfile = {
+                username: data.username,
+                email: data.email,
+                accessToken: data.accessToken,
+            };
+            localStorage.setItem('userProfile', JSON.stringify(userProfile));
+
+            // Redirect to profile.html to display user information
+            window.location.href = "/profile.html";
+        } else {
+            document.getElementById('message').textContent = data.message || "Verification failed.";
+        }
+    })
+    .catch(error => {
+        document.getElementById('message').textContent = "An error occurred: " + error.message;
+    });
+
+
+        } else {
+            document.getElementById('message').textContent = "No verification token provided.";
+        }
+    </script>
+</body>
+</html>

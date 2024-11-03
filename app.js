@@ -1,20 +1,16 @@
 import express from 'express';
-import cors from 'cors';
-import routes from './routes/routes.js';
-import 'dotenv/config';
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
+import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import nodemailer from 'nodemailer';
 import crypto from 'crypto';
 
+dotenv.config();
 const app = express();
-const port = process.env.PORT ?? 8080;
-app.use(cors());
-app.use(routes);
 app.use(express.json());
 
 app.use(session({
@@ -187,30 +183,6 @@ app.get('/protected', isAuthenticated, async (req, res) => {
     }
 });
 
-app.get('/api', isAuthenticated, async (req, res) => {
-    try {
-        const user = await User.findById(req.session.userId);
-        res.json({ message: "Welcome to the protected route!", username: user.username, email: user.email });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-    //res.status(404).json({ message: "Not Found", error: "There\'s nothing here, only cricket. 🦗" });
-});
-app.get('/api/*', isAuthenticated, async (req, res) => {
-    try {
-        const user = await User.findById(req.session.userId);
-        res.json({ message: "Welcome to the protected route!", username: user.username, email: user.email });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-    //res.status(404).json({ message: "Not Found", error: "There\'s nothing here, only cricket. 🦗" });
-});
 
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', '404.html'));
-});
-
-app.listen(port, () => {
-    console.log(`App is listening on port ${port}, http://localhost:${port}`);
-});
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
