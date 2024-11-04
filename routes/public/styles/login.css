@@ -5,57 +5,6 @@
 	padding: 0;
 	box-sizing: border-box;
 	font-family: 'Quicksand', sans-serif;
-    color: #fff;
-}
-        body {
-            display: flex;
-	justify-content: center;
-	align-items: center;
-	min-height: 100vh;
-	background: #181818;
-        }
-        
-        .container {
-            width: 400px;
-            padding: 20px;
-            background-color: #222;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            margin-top: 0;
-            
-        }
-        .info {
-            margin: 10px 0;
-            font-size: 0.8em;
-        }
-        button {
-            border-radius: 4px;
-            padding: 8px 8px 12px;
-            border: none;
-            position: relative;
-            width: 100%;
-	outline: none;
-	background: #0f0;
-	color: black;
-	font-weight: 600;
-	font-size: 1.35em;
-	letter-spacing: 0.05em;
-	cursor: pointer;
-    margin-top: 10px;
-        }
-        button:hover {
-            background-color: #181818;
-            color: #0f0
-            
-        }
-*
-{
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: 'Quicksand', sans-serif;
 }
 body 
 {
@@ -63,6 +12,7 @@ body
 	justify-content: center;
 	align-items: center;
 	min-height: 100vh;
+	background: #000;
 }
 section 
 {
@@ -112,34 +62,29 @@ section span:hover
 	transition: 0s;
 }
 
-section .signin {
-    position: absolute;
-    width: 80%;
-    height: 60%;
-    background: rgba(0, 0, 0, 0.8); /* Transparent black background */
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px;
-    border-radius: 4px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
-    overflow-y: auto; /* Enables scrolling */
+section .signin
+{
+	position: absolute;
+	width: 400px;
+  background: #222;  
+	z-index: 1000;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 40px;
+	border-radius: 4px;
+	box-shadow: 0 15px 35px rgba(0,0,0,9);
 }
-
-/* Optional: Limit the height of content within signin to prevent overflow */
-section .signin .content {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 40px;
-    max-height: 100%; /* Prevents content from extending beyond the signin box */
-    overflow-y: auto; /* Ensures content within the box can scroll */
+section .signin .content 
+{
+	position: relative;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 40px;
 }
-
 section .signin .content h2 
 {
 	font-size: 2em;
@@ -234,34 +179,4 @@ input[type="submit"]:active
 		width: calc(20vw - 2px);
 		height: calc(20vw - 2px);
 	}
-}
-
-.additional-info {
-    background-color: #f9f9f9;
-    padding: 20px;
-    margin: 20px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-.additional-info h2 {
-    margin-top: 0;
-}
-
-.additional-info ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.additional-info ul li {
-    margin: 5px 0;
-}
-
-.additional-info a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-.additional-info a:hover {
-    text-decoration: underline;
 }

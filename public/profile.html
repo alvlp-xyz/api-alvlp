@@ -320,6 +320,24 @@
         <span></span>
         <span></span>
         <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
 
         <div class="signin">
             <div class="container">
@@ -358,7 +376,7 @@
 
     // Logout functionality
     document.getElementById('logoutButton').addEventListener('click', () => {
-        fetch('/logout', {
+        fetch('auth/logout', {
             method: 'POST',
             credentials: 'include' // Include session cookie in the request
         })
