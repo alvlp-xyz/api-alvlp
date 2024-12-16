@@ -1,1 +1,2 @@
 video/webm,video/ogg,video/*;q=0.9,application/ogg;q=0.7,audio/*;q=0.6,*/*;q=0.5
+mongodb+srv://spesnxshinju:spesnxshinju@api-alvlp.jelq3.mongodb.net/api?retryWrites=true&w=majority&appName=api-alvlp

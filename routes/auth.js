@@ -40,9 +40,28 @@ const isAuth = (req, res, next) => {
     res.status(401).json({ message: "Unauthorized. Please log in." });
 };
 
+const isToken = async (req, res, next) => {
+    if (!req.session.userId) {
+        return res.status(401).json({ message: "Unauthorized. Please log in." });
+    }
+
+    try {
+        const user = await User.findById(req.session.userId);
+        if (!user) return res.status(404).json({ message: "User not found" });
+
+        req.accessToken = user.accessToken;
+        req.isVerified = user.isVerified;
+        next();
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+
 function generateRandomToken(length) {
     return crypto.randomBytes(length).toString('hex').substring(0, length);
 }
+
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log("MongoDB connected"))
@@ -59,6 +78,28 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
     
 
 const User = mongoose.model('User', userSchema);
+
+const validateApiKey = async (req, res, next) => {
+    const apiKey = req.query.apikey; // Extract the API key from the query string
+    
+    if (!apiKey) {
+        return res.status(400).json({ message: 'API key is required' });
+    }
+
+    try {
+        // Search for any user with the matching API key in the `accessToken` field
+        const user = await User.findOne({ accessToken: apiKey });
+        
+        if (!user) {
+            return res.status(401).json({ message: 'Invalid API key' });
+        }
+        
+        // Proceed to the next middleware/route handler
+        next();
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
 
 Auth.get('/profile', async (req, res) => {
     if (!req.session.userId) {
@@ -163,32 +204,13 @@ Auth.get('/verify.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'verify.html'));
 });
 
-/*
-Auth.get('/api', isAuth, async (req, res) => {
-    try {
-        const user = await User.findById(req.session.userId);
-        res.json({ name: "ALVLP API", author: "alvlp", username: user.username, email: user.email });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-    //res.status(404).json({ message: "Not Found", error: "There\'s nothing here, only cricket. 🦗" });
-});
-Auth.get('/api/*', isAuth, async (req, res) => {
-    try {
-        const user = await User.findById(req.session.userId);
-        res.json({ name: "ALVLP API", author: "alvlp", username: user.username, email: user.email });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-*/
-
-
 
 
 
 export default {
+    validateApiKey,
     Auth,
     isAuth,
-    transporter
+    transporter,
+    isToken
 };

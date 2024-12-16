@@ -112,10 +112,11 @@ section span:hover
 	transition: 0s;
 }
 
+/* Default styles for desktop devices */
 section .signin {
     position: absolute;
-    width: 80%;
-    height: 60%;
+    width: 40%;
+    height: 80%;
     background: rgba(0, 0, 0, 0.8); /* Transparent black background */
     z-index: 1000;
     display: flex;
@@ -125,6 +126,14 @@ section .signin {
     border-radius: 4px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
     overflow-y: auto; /* Enables scrolling */
+}
+
+/* Styles for mobile devices */
+@media only screen and (max-width: 768px) {
+    section .signin {
+        width: 80%;
+        height: 60%;
+    }
 }
 
 /* Optional: Limit the height of content within signin to prevent overflow */
