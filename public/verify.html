@@ -9,17 +9,14 @@
     <div id="message"></div>
 
     <script>
-        // Get the token from the URL
         const params = new URLSearchParams(window.location.search);
         const token = params.get('token');
 
         if (token) {
-// Assuming `token` is obtained from the URL or a stored variable
 fetch(`/auth/verify/${token}`)
     .then(response => response.json())
     .then(data => {
         if (data && data.accessToken) {
-            // Store user profile data in localStorage
             const userProfile = {
                 username: data.username,
                 email: data.email,
@@ -27,8 +24,7 @@ fetch(`/auth/verify/${token}`)
             };
             localStorage.setItem('userProfile', JSON.stringify(userProfile));
 
-            // Redirect to profile.html to display user information
-            window.location.href = "/profile.html";
+            window.location.href = 'login';
         } else {
             document.getElementById('message').textContent = data.message || "Verification failed.";
         }

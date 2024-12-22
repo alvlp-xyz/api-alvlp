@@ -505,13 +505,11 @@ input[type="submit"]:active
 
       <script>
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault(); // Prevent the default form submission
-            
-            // Gather username and password
+            e.preventDefault(); 
+
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
     
-            // Send login request
             const response = await fetch('/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -520,13 +518,11 @@ input[type="submit"]:active
             
             const data = await response.json();
     
-            // Check for token and store it, but redirect regardless of success
             if (data.token) {
                 localStorage.setItem('token', data.token);
             }
     
-            // Redirect to profile.html regardless of success or failure
-            window.location.href = 'profile'; // Always redirect
+            window.location.href = 'profile';
         });
     </script>
     

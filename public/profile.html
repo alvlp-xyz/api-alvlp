@@ -374,17 +374,15 @@
             document.body.innerHTML = `<p>An error occurred: ${error.message}</p>`;
         });
 
-    // Logout functionality
     document.getElementById('logoutButton').addEventListener('click', () => {
         fetch('auth/logout', {
             method: 'POST',
-            credentials: 'include' // Include session cookie in the request
+            credentials: 'include'
         })
         .then(response => response.json())
         .then(data => {
             if (data.message) {
-                // Redirect to login page after logout
-                window.location.href = 'login'; // Change this to your actual login page URL
+                window.location.href = 'login';
             }
         })
         .catch(error => {

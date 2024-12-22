@@ -1,14 +1,13 @@
 import express from 'express';
 import { Router } from 'express';
 import session from 'express-session';
-import MongoStore from 'connect-mongo';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import api from './api.js';
 import authModule from './auth.js';
 
-const { Auth, isAuth, transporter, isToken, validateApiKey } = authModule;
+const { Auth, isAuth, validateApiKey } = authModule;
 
 dotenv.config();
 
@@ -21,27 +20,8 @@ routes.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  store: MongoStore.create({
-    mongoUrl: process.env.MONGO_URI,
-  }),
   cookie: { secure: false },
-}));
-
-const checkApiKey = async (req, res, next) => {
-  try {
-    await isToken(req, res, async () => {
-      if (!req.isVerified) {
-        return res.status(403).json({ error: "Account not verified." });
-      }
-      const apikey = req.accessToken;
-      req.user = { apikey };
-      next();
-    });
-  } catch (error) {
-    console.error("Error checking user authentication:", error);
-    res.status(500).json({ error: error.message });
-  }
-};
+}));  
 
 routes.use(express.static(path.join(__dirname, '../public')));
 routes.get('/', (req, res) => {
@@ -59,6 +39,7 @@ routes.get('/register', (req, res) => {
 routes.get('/dashboard', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/dashboard.html'));
 });
+
 
 routes.use('/api/*', validateApiKey);
 routes.use('/run/*', isAuth);

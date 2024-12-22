@@ -1,0 +1,13 @@
+#Firebase
+FIREBASE_ADMIN_CREDENTIALS={}
+
+#General
+BASEURL=https://otakudesu.cloud
+PORT=5000
+
+#Mailer https://www.nodemailer.com/usage/using-gmail/
+EMAIL_USER=
+EMAIL_PASS=
+
+#Express gtw ini apa
+SESSION_SECRET=VXD5nLkx
