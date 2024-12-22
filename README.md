@@ -1,6 +1,18 @@
-# SIMPLE API
-**Node 18+**
+<p align="center">
+    <img src="https://camo.githubusercontent.com/48ace7370c4494f1a80f851819d7f981bd598c12b27c92020228db4e5a30b4d3/68747470733a2f2f6d656469612e74656e6f722e636f6d2f4659736a7976693343376b41414141692f7275706572742d6361742e676966" width="100%" style="margin-left: auto;margin-right: auto;display: block;">
+</p>
+<h1 align="center">Simple API</h1>
 
+</p>
+<p align="center">
+<a href="https://github.com/alvlp-xyz"><img title="Author" src="https://img.shields.io/badge/AUTHOR-alvlp-blue.svg?style=for-the-badge&logo=github"></a>
+<a><img src="https://img.shields.io/badge/Maintaned%3F-Actively%20Developed-blue?style=flat-square"></a>
+ 
+[![Kontak](https://img.shields.io/badge/WHATSAPP-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/6285161710084)
+[![Kontak](https://img.shields.io/badge/TELEGRAM-0077FF?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/devhunter)
+
+
+# Installation
 install? simple
 
 ``` 
