@@ -1,12 +1,18 @@
-# Node 18+
+# SIMPLE API
+**Node 18+**
 
 install? simple
+
+``` 
+git clone https://github.com/alvlp-xyz/api-alvlp && cd api-alvlp
+```
 ```
  npm i 
 ```
 ```
  node .
 ```
+
 # Setup Firestore + Nodemailer App Password  
 
 semua config berada difile .env
