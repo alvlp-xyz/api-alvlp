@@ -1,7 +1,12 @@
 # Node 18+
- npm i / yarn
-node .
 
+install? simple
+```
+ npm i 
+```
+```
+ node .
+```
 # Setup Firestore + Nodemailer App Password  
 
 semua config berada difile .env
